@@ -27,8 +27,13 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public String updateContact(ContactInfo contactInfo , Long contactId ) {
 
-        contactRepository.deleteById(contactId);
-        contactRepository.save(contactInfo);
+        ContactInfo contactInfo1 = contactRepository.findById(contactId).get() ;
+        contactInfo1.setFirstName(contactInfo.getFirstName());
+        contactInfo1.setLastName(contactInfo.getLastName());
+        contactInfo1.setEmailAddress(contactInfo.getEmailAddress());
+        contactInfo1.setPhoneNumber(contactInfo.getPhoneNumber());
+
+        contactRepository.save(contactInfo1);
         return "Success";
     }
 
